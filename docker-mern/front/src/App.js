@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import axios from 'axios'; // Importez Axios
+import axios from 'axios'; 
 
 function App() {
   const [dbStatus, setDbStatus] = useState('');
