@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 5000
 
 # Commander pour lancer l'application
-CMD ["npx", "nodemon", "server.js"]
+CMD ["npm", "run", "dev"]
