@@ -16,6 +16,31 @@ if ($conn->connect_error) {
   echo "<p>Connexion réussie à la base de données MySQL.</p>";
 }
 
+// Requête SQL pour créer une nouvelle table si elle n'existe pas déjà
+$sql = "CREATE TABLE IF NOT EXISTS Users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(50),
+    email VARCHAR(50),
+    age INT,
+    date_inscription DATETIME
+)";
+
+if ($conn->query($sql) === TRUE) {
+  echo "<p>Table 'Users' créée avec succès ou existe déjà.</p>";
+} else {
+  echo "Erreur lors de la création de la table : " . $conn->error;
+}
+
+// Requête SQL pour ajouter un utilisateur à la table Users
+$insert_sql = "INSERT INTO Users (nom, email, age, date_inscription) VALUES ('John4 Doe4', 'john4@example.com', 34, NOW())";
+
+// Exécution de la requête SQL
+if ($conn->query($insert_sql) === TRUE) {
+  echo "<p>Utilisateur ajouté avec succès.</p>";
+} else {
+  echo "Erreur lors de l'ajout de l'utilisateur : " . $conn->error;
+}
+
 // Requête SQL pour sélectionner tous les utilisateurs de la table Users
 $sql = "SELECT * FROM Users";
 
@@ -38,7 +63,7 @@ if ($result->num_rows > 0) {
   }
   echo "</table>";
 } else {
-  echo "Aucun utilisateur trouvé dans la base de données.";
+  echo "<p>Aucun utilisateur trouvé dans la base de données.</p>";
 }
 
 // Fermeture de la connexion à la base de données
