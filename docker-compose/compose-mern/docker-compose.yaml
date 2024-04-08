@@ -1,0 +1,27 @@
+version: '3'
+services:
+  backend:
+    image: node:latest
+    command: bash -c "cd /back && npm install && npm run dev"
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./back:/back
+    depends_on:
+      - mongodb
+
+  frontend:
+    image: node:latest
+    command: bash -c "cd /front && npm install && npm start"
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./front:/front
+    depends_on:
+      - backend
+
+  mongodb:
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
