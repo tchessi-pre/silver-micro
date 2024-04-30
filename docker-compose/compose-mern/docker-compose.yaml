@@ -14,7 +14,7 @@ services:
     image: node:latest
     command: bash -c "cd /front && npm install && npm start"
     ports:
-      - "3000:3000"
+      - "3001:3000"
     volumes:
       - ./front:/front
     depends_on:

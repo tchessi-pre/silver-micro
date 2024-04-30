@@ -1,23 +1,24 @@
-# Utiliser l'image officielle Node.js pour construire le projet
-FROM node:latest
+# Utiliser l'image officielle de Node.js
+FROM node:14
 
 # Définir le répertoire de travail dans le conteneur
-WORKDIR /front
+WORKDIR /app
 
 # Copier les fichiers package.json et package-lock.json
 COPY package*.json ./
 
-# Installer les dépendances du projet
+# Installer les dépendances du projet, incluant serve pour le déploiement
 RUN npm install
+RUN npm install -g serve
 
-# Copier les autres fichiers et dossiers du projet dans le conteneur
+# Copier tous les fichiers du projet dans le répertoire de travail
 COPY . .
 
-# Construire l'application React (étape optionnelle si vous servez directement en mode développement)
-# RUN npm run build
+# Construire l'application pour la production
+RUN npm run build
 
-# Exposer le port 3000
+# Exposer le port 3000 pour l'application
 EXPOSE 3000
 
-# Commander pour lancer l'application en mode de développement
-CMD ["npm", "start"]
+# Lancer serve pour servir l'application
+CMD ["serve", "-s", "build", "-l", "3000"]

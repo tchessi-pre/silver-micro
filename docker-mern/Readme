@@ -1,0 +1,44 @@
+# Déploiement de l'application ReactApp sur Kubernetes
+
+Ce guide détaille les étapes nécessaires pour déployer l'application front-end `ReactApp` sur un cluster Kubernetes en utilisant une image stockée dans un dépôt public sur Docker Hub sous le nom `tchessi`.
+
+## Prérequis
+
+- Avoir Docker installé sur votre machine.
+- Avoir un compte sur Docker Hub.
+- Avoir kubectl installé et configuré pour interagir avec votre cluster Kubernetes.
+- Avoir accès à un cluster Kubernetes.
+
+## Étapes de déploiement
+
+### Étape 1 : Étiqueter votre image Docker
+
+Vous devez d'abord étiqueter votre image Docker avec le nom de votre dépôt sur Docker Hub. Cette étape est nécessaire pour pousser l'image dans votre dépôt public.
+
+```bash
+docker tag reactapp:latest tchessi/reactapp:latest
+
+Étape 2 : Pousser l'image sur Docker Hub
+Avant de pousser l'image, assurez-vous que vous êtes connecté à Docker Hub. Utilisez la commande suivante pour vous connecter :
+
+```bash
+docker login
+Une fois connecté, poussez l'image étiquetée vers votre dépôt public avec la commande :
+
+```bash
+docker push tchessi/reactapp:latest
+Étape 3 : Mettre à jour le fichier de déploiement Kubernetes
+Mettez à jour le fichier de déploiement Kubernetes pour utiliser l'image de votre dépôt public. Voici un exemple de configuration pour un déploiement et un service Kubernetes :
+
+Étape 4 : Appliquer la configuration mise à jour
+Appliquez la configuration à votre cluster Kubernetes pour créer ou mettre à jour votre déploiement et votre service :
+
+```bash
+kubectl apply -f deployment.yaml
+Vérification
+Après avoir appliqué les configurations, vérifiez que les pods et services fonctionnent correctement :
+
+```bash
+kubectl get deployments
+kubectl get svc
+Utilisez les commandes ci-dessus pour confirmer que les pods sont en cours d'exécution et que le service est correctement exposé.
